@@ -16,6 +16,11 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* ShoppingAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ShoppingAppTests.m */; };
+		3570E6BC242578FE00AFFFD2 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3570E6B8242578FE00AFFFD2 /* OpenSans-Bold.ttf */; };
+		3570E6BD242578FE00AFFFD2 /* OpenSansBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3570E6B9242578FE00AFFFD2 /* OpenSansBold.ttf */; };
+		3570E6BE242578FE00AFFFD2 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3570E6BA242578FE00AFFFD2 /* OpenSans-Regular.ttf */; };
+		3570E6BF242578FE00AFFFD2 /* OpenSansRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3570E6BB242578FE00AFFFD2 /* OpenSansRegular.ttf */; };
+		35D105A62426B653006AA54D /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 35D105A52426B653006AA54D /* Fonts */; };
 		3F95CE7E8EF100497336FD2D /* libPods-ShoppingApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 61D9CDBB7F5E4A970C2FFA80 /* libPods-ShoppingApp-tvOSTests.a */; };
 		5E9E35C939C6240192CCF41F /* libPods-ShoppingApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 733FE34906A702B72FF4E34A /* libPods-ShoppingApp.a */; };
 		739DE9BDE761CF1390401B01 /* libPods-ShoppingAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18BD97C3E9858E5F639F7C06 /* libPods-ShoppingAppTests.a */; };
@@ -55,6 +60,11 @@
 		28E46C19E1C321C25EBACB37 /* Pods-ShoppingApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingApp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-ShoppingApp-tvOSTests/Pods-ShoppingApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* ShoppingApp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ShoppingApp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* ShoppingApp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ShoppingApp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3570E6B8242578FE00AFFFD2 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Bold.ttf"; path = "../assets/fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		3570E6B9242578FE00AFFFD2 /* OpenSansBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = OpenSansBold.ttf; path = ../assets/fonts/OpenSansBold.ttf; sourceTree = "<group>"; };
+		3570E6BA242578FE00AFFFD2 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "../assets/fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		3570E6BB242578FE00AFFFD2 /* OpenSansRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = OpenSansRegular.ttf; path = ../assets/fonts/OpenSansRegular.ttf; sourceTree = "<group>"; };
+		35D105A52426B653006AA54D /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Fonts; path = "../node_modules/react-native-vector-icons/Fonts"; sourceTree = "<group>"; };
 		36B17D69C1EA02B1CBBE38FB /* Pods-ShoppingApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-ShoppingApp-tvOS/Pods-ShoppingApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		5F6AABCCD268D27B81BB85B3 /* Pods-ShoppingApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingApp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-ShoppingApp-tvOSTests/Pods-ShoppingApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		61D9CDBB7F5E4A970C2FFA80 /* libPods-ShoppingApp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShoppingApp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,7 +158,6 @@
 				A01053A967A8DD217BAF060F /* Pods-ShoppingAppTests.debug.xcconfig */,
 				75D4F5F59A72FC36BD4E0842 /* Pods-ShoppingAppTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -165,9 +174,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		57D8850690744C83B84A29AE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				35D105A52426B653006AA54D /* Fonts */,
+				3570E6B8242578FE00AFFFD2 /* OpenSans-Bold.ttf */,
+				3570E6BA242578FE00AFFFD2 /* OpenSans-Regular.ttf */,
+				3570E6B9242578FE00AFFFD2 /* OpenSansBold.ttf */,
+				3570E6BB242578FE00AFFFD2 /* OpenSansRegular.ttf */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -181,6 +202,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				1D3CBA2607527FDDE74CB1B0 /* Pods */,
+				57D8850690744C83B84A29AE /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -230,6 +252,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				9ED915A0747BB4B4F1C339FC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -285,7 +308,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 940;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -308,6 +331,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -336,8 +360,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3570E6BE242578FE00AFFFD2 /* OpenSans-Regular.ttf in Resources */,
+				3570E6BD242578FE00AFFFD2 /* OpenSansBold.ttf in Resources */,
+				3570E6BF242578FE00AFFFD2 /* OpenSansRegular.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				35D105A62426B653006AA54D /* Fonts in Resources */,
+				3570E6BC242578FE00AFFFD2 /* OpenSans-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,6 +502,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9ED915A0747BB4B4F1C339FC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ShoppingApp/Pods-ShoppingApp-resources.sh",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ShoppingApp/Pods-ShoppingApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
