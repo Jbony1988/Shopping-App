@@ -4,10 +4,11 @@ import {useSelector, useDispatch} from 'react-redux';
 import Colors from '../../constants/Colors';
 import CartItem from '../../components/shop/CartItem';
 import * as cartActions from '../../store/actions/cart';
-import cart from '../../store/reducers/cart';
+import * as ordersActions from '../../store/actions/orders';
 
 const CartScreen = props => {
   const cartTotalAmount = useSelector(state => state.cart.totalAmount);
+  console.log(cartTotalAmount, 'total amount');
   const cartItems = useSelector(state => {
     const transformedCartItems = [];
     // iterate through each item in the cart array from state in the reducer
@@ -36,7 +37,15 @@ const CartScreen = props => {
           Total:{' '}
           <Text style={styles.amount}>${cartTotalAmount.toFixed(2)}</Text>
         </Text>
-        <Button title="Order Now" disabled={cartItems.length === 0} />
+        <Button
+          onPress={() => {
+            dispatch(
+              ordersActions.addOrder(cartItems, cartTotalAmount.toFixed(2)),
+            );
+          }}
+          title="Order Now"
+          disabled={cartItems.length === 0}
+        />
       </View>
       <FlatList
         data={cartItems}
@@ -54,6 +63,10 @@ const CartScreen = props => {
       />
     </View>
   );
+};
+
+CartScreen.navigationOptions = {
+  headerTitle: 'Your cart',
 };
 
 const styles = StyleSheet.create({
