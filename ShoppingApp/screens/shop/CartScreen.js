@@ -52,6 +52,7 @@ const CartScreen = props => {
         keyExtractor={item => item.productId}
         renderItem={itemData => (
           <CartItem
+            deleteable
             onRemove={() => {
               dispatch(cartActions.removeFromCart(itemData.item.productId));
             }}
