@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   quantity: {
-    fontFamily: 'open-sans',
+    fontFamily: 'OpenSans-Regular',
     color: '#888',
     fontSize: 16,
   },

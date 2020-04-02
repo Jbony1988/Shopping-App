@@ -6,16 +6,20 @@
  * @flow
  */
 
+import 'react-native-gesture-handler';
 import React from 'react';
-
-import {createStore, combineReducers} from 'redux';
+import {enableScreens} from 'react-native-screens';
+import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
 import {Provider} from 'react-redux';
 import ShopNavigator from './navigation/ShopNavigator';
 import {composeWithDevTools} from 'redux-devtools-extension';
+import ReduxThunk from 'redux-thunk';
 
 import ordersReducer from './store/reducers/orders';
 import productsReducer from './store/reducers/products';
 import cartReducer from './store/reducers/cart';
+
+enableScreens();
 
 const rootReducer = combineReducers({
   products: productsReducer,
@@ -23,7 +27,10 @@ const rootReducer = combineReducers({
   orders: ordersReducer,
 });
 
-const store = createStore(rootReducer, composeWithDevTools());
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(ReduxThunk)),
+);
 
 const App = () => {
   return (
