@@ -6,11 +6,18 @@ import Product from '../../models/product';
 
 import axios from 'axios';
 
-export const deleteProduct = productId => {
-  return {type: DELETE_PRODUCT, pid: productId};
+export const deleteProduct = (productId) => async (dispatch) => {
+  try {
+    await axios.delete(
+      `https://shopping-app-948db.firebaseio.com/products/${productId}.json`,
+    );
+    dispatch({type: DELETE_PRODUCT, pid: productId});
+  } catch (error) {
+    throw new Error('Something went wrong!');
+  }
 };
 
-export const getProducts = () => async dispatch => {
+export const getProducts = () => async (dispatch) => {
   // any async code you want!
   try {
     const response = await axios.get(
@@ -48,48 +55,9 @@ export const getProducts = () => async dispatch => {
   }
 };
 
-// export const getProducts = () => {
-//   return async dispatch => {
-//     // any async code you want!
-//     try {
-//       const response = await fetch(
-//         'https://shopping-app-948db.firebaseio.com/products.json',
-//       );
-
-//       if (!response.ok) {
-//         throw new Error('Something went wrong!');
-//       }
-
-//       const resData = await response.json();
-//       const loadedProducts = [];
-
-//       for (const key in resData) {
-//         loadedProducts.push(
-//           new Product(
-//             key,
-//             'u1',
-//             resData[key].title,
-//             resData[key].imageUrl,
-//             resData[key].description,
-//             resData[key].price,
-//           ),
-//         );
-//       }
-
-//       dispatch({type: SET_PRODUCTS, products: loadedProducts});
-//     } catch (err) {
-//       // send to custom analytics server
-//       throw err;
-//     }
-//   };
-// };
-
-export const createProduct = (
-  title,
-  description,
-  imageUrl,
-  price,
-) => async dispatch => {
+export const createProduct = (title, description, imageUrl, price) => async (
+  dispatch,
+) => {
   const config = {
     headers: {
       'Content-type': 'application/json',
@@ -131,14 +99,45 @@ export const createProduct = (
   }
 };
 
-export const updateProduct = (id, title, description, imageUrl) => {
-  return {
-    type: UPDATE_PRODUCT,
-    pid: id,
-    productData: {
-      title,
-      description,
-      imageUrl,
+export const updateProduct = (id, title, description, imageUrl) => async (
+  dispatch,
+) => {
+  const config = {
+    headers: {
+      'Content-type': 'application/json',
     },
   };
+
+  const formData = {
+    title,
+    description,
+    imageUrl,
+  };
+
+  console.log(formData);
+  const body = JSON.stringify(formData);
+
+  // any async code you want!
+  try {
+    await axios.patch(
+      `https://shopping-app-948db.firebaseio.com/products/${id}.json`,
+
+      body,
+      config,
+    );
+
+    dispatch({
+      type: UPDATE_PRODUCT,
+      pid: id,
+      productData: {
+        title,
+        description,
+        imageUrl,
+      },
+    });
+    // dispatch(getProducts());
+  } catch (error) {
+    throw new Error('Something went wrong!');
+    // console.log(error.response.data);
+  }
 };

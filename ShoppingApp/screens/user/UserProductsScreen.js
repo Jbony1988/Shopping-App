@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useCallback, useState} from 'react';
 import {FlatList, Platform, Button, Alert} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import ProductItem from '../../components/shop/ProductItem';
@@ -8,9 +8,21 @@ import Colors from '../../constants/Colors';
 import * as productsActions from '../../store/actions/products';
 
 export const UserProductsScreen = props => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
   const userProducts = useSelector(state => state.products.userProducts);
   const dispatch = useDispatch();
 
+  const loadProducts = useCallback(async () => {
+    setError(null);
+    setIsLoading(true);
+    try {
+      await dispatch(productsActions.getProducts());
+    } catch (err) {
+      setError(err.message);
+    }
+    setIsLoading(false);
+  }, [dispatch, setIsLoading, setError]);
   const editProductHandler = id => {
     props.navigation.navigate('EditProduct', {productId: id});
   };
@@ -27,6 +39,18 @@ export const UserProductsScreen = props => {
       },
     ]);
   };
+
+  useEffect(() => {
+    const willFocusSub = props.navigation.addListener(
+      'willFocus',
+      loadProducts,
+    );
+
+    // Clean up and remove event  listener when component unmounts
+    return () => {
+      willFocusSub.remove();
+    };
+  }, [loadProducts]);
 
   return (
     <FlatList

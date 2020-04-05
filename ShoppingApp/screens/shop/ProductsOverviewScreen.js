@@ -18,22 +18,23 @@ import * as productsActions from '../../store/actions/products';
 import * as cartActions from '../../store/actions/cart';
 import Colors from '../../constants/Colors';
 
-const ProductsOverviewScreen = props => {
+const ProductsOverviewScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
-  const products = useSelector(state => state.products.availableProducts);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const products = useSelector((state) => state.products.availableProducts);
   const dispatch = useDispatch();
 
   const loadProducts = useCallback(async () => {
     setError(null);
-    setIsLoading(true);
+    setIsRefreshing(true);
     try {
       await dispatch(productsActions.getProducts());
     } catch (err) {
       setError(err.message);
     }
-    setIsLoading(false);
-  }, [dispatch, setIsLoading, setError]);
+    setIsRefreshing(false);
+  }, [dispatch, setError]);
 
   useEffect(() => {
     const willFocusSub = props.navigation.addListener(
@@ -45,10 +46,13 @@ const ProductsOverviewScreen = props => {
     return () => {
       willFocusSub.remove();
     };
-  }, [loadProducts]);
+  }, [loadProducts, props.navigation]);
 
   useEffect(() => {
-    loadProducts();
+    setIsLoading(true);
+    loadProducts().then(() => {
+      setIsLoading(false);
+    });
   }, [dispatch, loadProducts]);
 
   const selectItemHandler = (id, title) => {
@@ -89,9 +93,11 @@ const ProductsOverviewScreen = props => {
 
   return (
     <FlatList
+      onRefresh={loadProducts}
+      refreshing={isRefreshing}
       data={products}
-      keyExtractor={item => item.id}
-      renderItem={itemData => (
+      keyExtractor={(item) => item.id}
+      renderItem={(itemData) => (
         <ProductItem
           image={itemData.item.imageUrl}
           title={itemData.item.title}
@@ -119,7 +125,7 @@ const ProductsOverviewScreen = props => {
   );
 };
 
-ProductsOverviewScreen.navigationOptions = navData => {
+ProductsOverviewScreen.navigationOptions = (navData) => {
   return {
     headerTitle: 'All Products',
     headerLeft: () => (
