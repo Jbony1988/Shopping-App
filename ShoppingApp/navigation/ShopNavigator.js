@@ -1,9 +1,10 @@
 import React from 'react';
 import {createStackNavigator} from 'react-navigation-stack';
-import {createAppContainer} from 'react-navigation';
+import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createDrawerNavigator} from 'react-navigation-drawer';
 import {Platform} from 'react-native';
 import ProductsOverviewScreen from '../screens/shop/ProductsOverviewScreen';
+import AuthScreen from '../screens/user/AuthScreen';
 import Colors from '../constants/Colors';
 import ProductDetailScreen from '../screens/shop/ProductDetailScreen';
 import CartScreen from '../screens/shop/CartScreen';
@@ -33,7 +34,7 @@ const ProductsNavigator = createStackNavigator(
   },
   {
     navigationOptions: {
-      drawerIcon: drawerConfig => (
+      drawerIcon: (drawerConfig) => (
         <Ionicons
           name={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'}
           size={23}
@@ -51,7 +52,7 @@ const OrdersNavigator = createStackNavigator(
   },
   {
     navigationOptions: {
-      drawerIcon: drawerConfig => (
+      drawerIcon: (drawerConfig) => (
         <Ionicons
           name={Platform.OS === 'android' ? 'md-list' : 'ios-list'}
           size={23}
@@ -70,7 +71,7 @@ const AdminNavigator = createStackNavigator(
   },
   {
     navigationOptions: {
-      drawerIcon: drawerConfig => (
+      drawerIcon: (drawerConfig) => (
         <Ionicons
           name={Platform.OS === 'android' ? 'md-create' : 'ios-create'}
           size={23}
@@ -95,4 +96,13 @@ const ShopNavigator = createDrawerNavigator(
   },
 );
 
-export default createAppContainer(ShopNavigator);
+const AuthNavigator = createStackNavigator({
+  Auth: AuthScreen,
+});
+
+const MainNavigator = createSwitchNavigator({
+  Auth: AuthNavigator,
+  Shop: ShopNavigator,
+});
+
+export default createAppContainer(MainNavigator);

@@ -16,6 +16,7 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import ReduxThunk from 'redux-thunk';
 
 import ordersReducer from './store/reducers/orders';
+import authReducer from './store/reducers/auth';
 import productsReducer from './store/reducers/products';
 import cartReducer from './store/reducers/cart';
 
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   products: productsReducer,
   cart: cartReducer,
   orders: ordersReducer,
+  auth: authReducer,
 });
 
 const store = createStore(

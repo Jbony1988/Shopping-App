@@ -4,13 +4,18 @@ import Orders from '../../models/orders';
 import axios from 'axios';
 import Order from '../../models/orders';
 
-export const addOrder = (cartItems, totalAmount) => async dispatch => {
+export const addOrder = (cartItems, totalAmount) => async (
+  dispatch,
+  getState,
+) => {
   const date = new Date();
   const config = {
     headers: {
       'Content-type': 'application/json',
     },
   };
+
+  const token = getState().auth.token;
 
   const formData = {
     cartItems,
@@ -24,7 +29,7 @@ export const addOrder = (cartItems, totalAmount) => async dispatch => {
   // any async code you want!
   try {
     const response = await axios.post(
-      'https://shopping-app-948db.firebaseio.com/orders/u1.json',
+      `https://shopping-app-948db.firebaseio.com/orders/u1.json?${token}`,
 
       body,
       config,

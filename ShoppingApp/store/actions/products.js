@@ -6,10 +6,12 @@ import Product from '../../models/product';
 
 import axios from 'axios';
 
-export const deleteProduct = (productId) => async (dispatch) => {
+export const deleteProduct = productId => async (dispatch, getState) => {
+  const token = getState().auth.token;
+
   try {
     await axios.delete(
-      `https://shopping-app-948db.firebaseio.com/products/${productId}.json`,
+      `https://shopping-app-948db.firebaseio.com/products/${productId}.json?auth${token}`,
     );
     dispatch({type: DELETE_PRODUCT, pid: productId});
   } catch (error) {
@@ -17,7 +19,7 @@ export const deleteProduct = (productId) => async (dispatch) => {
   }
 };
 
-export const getProducts = () => async (dispatch) => {
+export const getProducts = () => async dispatch => {
   // any async code you want!
   try {
     const response = await axios.get(
@@ -57,12 +59,15 @@ export const getProducts = () => async (dispatch) => {
 
 export const createProduct = (title, description, imageUrl, price) => async (
   dispatch,
+  getState,
 ) => {
   const config = {
     headers: {
       'Content-type': 'application/json',
     },
   };
+
+  const token = getState().auth.token;
 
   const formData = {
     title,
@@ -77,7 +82,7 @@ export const createProduct = (title, description, imageUrl, price) => async (
   // any async code you want!
   try {
     const response = await axios.post(
-      'https://shopping-app-948db.firebaseio.com/products.json',
+      `https://shopping-app-948db.firebaseio.com/products.json?auth${token}`,
 
       body,
       config,
@@ -101,12 +106,15 @@ export const createProduct = (title, description, imageUrl, price) => async (
 
 export const updateProduct = (id, title, description, imageUrl) => async (
   dispatch,
+  getState,
 ) => {
   const config = {
     headers: {
       'Content-type': 'application/json',
     },
   };
+
+  const token = getState().auth.token;
 
   const formData = {
     title,
@@ -120,7 +128,7 @@ export const updateProduct = (id, title, description, imageUrl) => async (
   // any async code you want!
   try {
     await axios.patch(
-      `https://shopping-app-948db.firebaseio.com/products/${id}.json`,
+      `https://shopping-app-948db.firebaseio.com/products/${id}.json?auth=${token}`,
 
       body,
       config,
