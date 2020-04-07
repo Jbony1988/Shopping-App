@@ -19,7 +19,9 @@ export const deleteProduct = productId => async (dispatch, getState) => {
   }
 };
 
-export const getProducts = () => async dispatch => {
+export const getProducts = () => async (dispatch, getState) => {
+  const userId = getState().auth.userId;
+
   // any async code you want!
   try {
     const response = await axios.get(
@@ -38,7 +40,7 @@ export const getProducts = () => async dispatch => {
       loadedProducts.push(
         new Product(
           key,
-          'u1',
+          resData[key].ownerId,
           resData[key].title,
           resData[key].imageUrl,
           resData[key].description,
@@ -50,6 +52,7 @@ export const getProducts = () => async dispatch => {
     dispatch({
       type: SET_PRODUCTS,
       products: loadedProducts,
+      userProducts: loadedProducts.filter(prod => prod.ownerId === userId),
     });
   } catch (err) {
     // Send to custom server analytics;
@@ -68,12 +71,14 @@ export const createProduct = (title, description, imageUrl, price) => async (
   };
 
   const token = getState().auth.token;
+  const userId = getState().auth.userId;
 
   const formData = {
     title,
     description,
     imageUrl,
     price,
+    ownerId: userId,
   };
 
   console.log(formData);
@@ -82,7 +87,7 @@ export const createProduct = (title, description, imageUrl, price) => async (
   // any async code you want!
   try {
     const response = await axios.post(
-      `https://shopping-app-948db.firebaseio.com/products.json?auth${token}`,
+      `https://shopping-app-948db.firebaseio.com/products.json?auth=${token}`,
 
       body,
       config,
@@ -97,6 +102,7 @@ export const createProduct = (title, description, imageUrl, price) => async (
         description,
         imageUrl,
         price,
+        ownerId: userId,
       },
     });
   } catch (error) {

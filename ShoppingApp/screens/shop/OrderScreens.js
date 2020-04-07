@@ -3,6 +3,7 @@ import {
   FlatList,
   Platform,
   View,
+  Text,
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
@@ -30,6 +31,14 @@ const OrderScreens = props => {
     return (
       <View style={styles.centered}>
         <ActivityIndicator size="large" color={Colors.primary} />
+      </View>
+    );
+  }
+
+  if (orders.length === 0) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>No orders found, maybe start ordering some products</Text>
       </View>
     );
   }

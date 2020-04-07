@@ -16,6 +16,7 @@ export const addOrder = (cartItems, totalAmount) => async (
   };
 
   const token = getState().auth.token;
+  const userId = getState().auth.userId;
 
   const formData = {
     cartItems,
@@ -29,7 +30,7 @@ export const addOrder = (cartItems, totalAmount) => async (
   // any async code you want!
   try {
     const response = await axios.post(
-      `https://shopping-app-948db.firebaseio.com/orders/u1.json?${token}`,
+      `https://shopping-app-948db.firebaseio.com/orders/${userId}.json?auth=${token}`,
 
       body,
       config,
@@ -49,10 +50,12 @@ export const addOrder = (cartItems, totalAmount) => async (
   }
 };
 
-export const getOrders = () => async dispatch => {
+export const getOrders = () => async (dispatch, getState) => {
+  const userId = getState().auth.userId;
+
   try {
     const response = await axios.get(
-      'https://shopping-app-948db.firebaseio.com/orders/u1.json',
+      `https://shopping-app-948db.firebaseio.com/orders/${userId}.json`,
     );
 
     if (response.status !== 200) {
