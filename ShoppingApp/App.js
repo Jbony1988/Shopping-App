@@ -19,6 +19,7 @@ import ordersReducer from './store/reducers/orders';
 import authReducer from './store/reducers/auth';
 import productsReducer from './store/reducers/products';
 import cartReducer from './store/reducers/cart';
+import NavigationContainer from './navigation/NavigationContainer';
 
 enableScreens();
 
@@ -37,7 +38,7 @@ const store = createStore(
 const App = () => {
   return (
     <Provider store={store}>
-      <ShopNavigator />
+      <NavigationContainer />
     </Provider>
   );
 };
