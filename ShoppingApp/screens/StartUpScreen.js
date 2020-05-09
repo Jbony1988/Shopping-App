@@ -1,11 +1,13 @@
 import React, {useEffect} from 'react';
-import {View, ActivityIndicator, StyleSheet, AsyncStorage} from 'react-native';
+import {View, ActivityIndicator, StyleSheet} from 'react-native';
 import {useDispatch} from 'react-redux';
 
 import Colors from '../constants/Colors';
 import * as authActions from '../store/actions/auth';
 
-const StartUpScreen = props => {
+import AsyncStorage from '@react-native-community/async-storage';
+
+const StartupScreen = props => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,14 +25,15 @@ const StartUpScreen = props => {
         props.navigation.navigate('Auth');
         return;
       }
+
       const expirationTime = expirationDate.getTime() - new Date().getTime();
+
       props.navigation.navigate('Shop');
       dispatch(authActions.authenticate(userId, token, expirationTime));
     };
 
     tryLogin();
   }, [dispatch]);
-
   return (
     <View style={styles.screen}>
       <ActivityIndicator size="large" color={Colors.primary} />
@@ -38,11 +41,12 @@ const StartUpScreen = props => {
   );
 };
 
-export default StartUpScreen;
-
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
   },
 });
+
+export default StartupScreen;

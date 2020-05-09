@@ -7,22 +7,10 @@ import HeaderButton from '../../components/UI/HeaderButton';
 import Colors from '../../constants/Colors';
 import * as productsActions from '../../store/actions/products';
 
-export const UserProductsScreen = props => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
+const UserProductsScreen = props => {
   const userProducts = useSelector(state => state.products.userProducts);
   const dispatch = useDispatch();
 
-  const loadProducts = useCallback(async () => {
-    setError(null);
-    setIsLoading(true);
-    try {
-      await dispatch(productsActions.getProducts());
-    } catch (err) {
-      setError(err.message);
-    }
-    setIsLoading(false);
-  }, [dispatch, setIsLoading, setError]);
   const editProductHandler = id => {
     props.navigation.navigate('EditProduct', {productId: id});
   };
@@ -31,7 +19,7 @@ export const UserProductsScreen = props => {
     Alert.alert('Are you sure?', 'Do you really want to delete this item?', [
       {text: 'No', style: 'default'},
       {
-        text: 'yes',
+        text: 'Yes',
         style: 'destructive',
         onPress: () => {
           dispatch(productsActions.deleteProduct(id));
@@ -40,22 +28,10 @@ export const UserProductsScreen = props => {
     ]);
   };
 
-  useEffect(() => {
-    const willFocusSub = props.navigation.addListener(
-      'willFocus',
-      loadProducts,
-    );
-
-    // Clean up and remove event  listener when component unmounts
-    return () => {
-      willFocusSub.remove();
-    };
-  }, [loadProducts]);
-
   if (userProducts.length === 0) {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text>No products found, maybe start creating some</Text>
+        <Text>No products found, maybe start creating some?</Text>
       </View>
     );
   }
@@ -66,11 +42,9 @@ export const UserProductsScreen = props => {
       keyExtractor={item => item.id}
       renderItem={itemData => (
         <ProductItem
-          onAddToCart={() => {}}
-          onViewDetail={() => {}}
-          price={itemData.item.price}
           image={itemData.item.imageUrl}
           title={itemData.item.title}
+          price={itemData.item.price}
           onSelect={() => {
             editProductHandler(itemData.item.id);
           }}>
@@ -95,7 +69,7 @@ export const UserProductsScreen = props => {
 UserProductsScreen.navigationOptions = navData => {
   return {
     headerTitle: 'Your Products',
-    headerLeft: () => (
+    headerLeft: (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
           title="Menu"
@@ -106,7 +80,7 @@ UserProductsScreen.navigationOptions = navData => {
         />
       </HeaderButtons>
     ),
-    headerRight: () => (
+    headerRight: (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
           title="Add"

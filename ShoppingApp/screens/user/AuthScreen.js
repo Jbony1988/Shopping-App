@@ -138,7 +138,7 @@ const AuthScreen = props => {
               ) : (
                 <Button
                   title={isSignup ? 'Sign Up' : 'Login'}
-                  color={Colors.primary}
+                  color={Colors.green}
                   onPress={authHandler}
                 />
               )}
@@ -160,7 +160,7 @@ const AuthScreen = props => {
 };
 
 AuthScreen.navigationOptions = {
-  headerTitle: 'Authenticate',
+  headerTitle: 'Log in',
 };
 
 const styles = StyleSheet.create({

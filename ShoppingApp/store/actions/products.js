@@ -8,14 +8,13 @@ import axios from 'axios';
 
 export const deleteProduct = productId => async (dispatch, getState) => {
   const token = getState().auth.token;
-
   try {
     await axios.delete(
-      `https://shopping-app-948db.firebaseio.com/products/${productId}.json?auth${token}`,
+      `https://shopping-app-948db.firebaseio.com/products/${productId}.json?auth=${token}`,
     );
     dispatch({type: DELETE_PRODUCT, pid: productId});
   } catch (error) {
-    throw new Error('Something went wrong!');
+    throw new Error('Something went wrong!' + error.message);
   }
 };
 

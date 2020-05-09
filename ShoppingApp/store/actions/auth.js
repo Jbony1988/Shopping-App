@@ -1,47 +1,38 @@
 import axios from 'axios';
-import {AsyncStorage} from 'react-native';
-// export const SIGNUP = 'SIGNUP';
-// export const LOGIN = 'LOGIN';
-
+import AsyncStorage from '@react-native-community/async-storage';
+export const SIGNUP = 'SIGNUP';
+export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const AUTHENTICATE = 'AUTHENTICATE';
-
 let timer;
-
 export const authenticate = (userId, token, expiryTime) => {
   return dispatch => {
     dispatch(setLogoutTimer(expiryTime));
     dispatch({type: AUTHENTICATE, userId: userId, token: token});
   };
 };
-
 export const signup = (email, password) => async dispatch => {
   const config = {
     headers: {
       'Content-type': 'application/json',
     },
   };
-
   const formData = {
     email,
     password,
     returnSecureToken: true,
   };
-
   console.log(formData);
   const body = JSON.stringify(formData);
-
   try {
     const response = await axios.post(
       'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBh41b74EPUSVhxaPWfdAqgoHMRTPC5Ixc',
       body,
       config,
     );
-
     if (response.status !== 200) {
       throw new Error('Something went wrong');
     }
-
     const resData = response.data;
     console.log(resData);
     dispatch(
@@ -66,35 +57,29 @@ export const signup = (email, password) => async dispatch => {
     throw new Error(`${message}`);
   }
 };
-
 export const login = (email, password) => async dispatch => {
   const config = {
     headers: {
       'Content-type': 'application/json',
     },
   };
-
   const formData = {
     email,
     password,
     returnSecureToken: true,
   };
-
   console.log(formData);
   const body = JSON.stringify(formData);
-
   try {
     const response = await axios.post(
       'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBh41b74EPUSVhxaPWfdAqgoHMRTPC5Ixc',
       body,
       config,
     );
-
     if (response.status !== 200) {
       const errorData = response.error;
       console.log(errorData);
     }
-
     const resData = response.data;
     console.log(resData);
     dispatch(
@@ -121,21 +106,28 @@ export const login = (email, password) => async dispatch => {
     throw new Error(`${message}`);
   }
 };
-
+// export const logout = async () => {
+//   clearLogoutTimer();
+//   try {
+//     await AsyncStorage.removeItem('userData');
+//     return {type: LOGOUT};
+//     // return {
+//     //   type: LOGOUT,
+//     // };
+//   } catch (err) {
+//     console.log('logout');
+//   }
+// };
 export const logout = () => {
   clearLogoutTimer();
   AsyncStorage.removeItem('userData');
-  return {
-    type: LOGOUT,
-  };
+  return {type: LOGOUT};
 };
-
 const clearLogoutTimer = () => {
   if (timer) {
     clearTimeout(timer);
   }
 };
-
 const setLogoutTimer = expirationTime => {
   return dispatch => {
     timer = setTimeout(() => {
@@ -150,7 +142,22 @@ const saveDataToStorage = (token, userId, expirationDate) => {
     JSON.stringify({
       token: token,
       userId: userId,
-      expiry: expirationDate.toISOString(),
+      expiryDate: expirationDate.toISOString(),
     }),
   );
 };
+
+// const saveDataToStorage = async (token, userId, expirationDate) => {
+//   try {
+//     await AsyncStorage.setItem(
+//       'userData',
+//       JSON.stringify({
+//         token: token,
+//         userId: userId,
+//         expiry: expirationDate.toISOString(),
+//       }),
+//     );
+//   } catch (err) {
+//     console.log(err.response.data);
+//   }
+// };

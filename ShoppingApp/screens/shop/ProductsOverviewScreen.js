@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
-
 import HeaderButton from '../../components/UI/HeaderButton';
 import ProductItem from '../../components/shop/ProductItem';
 import * as productsActions from '../../store/actions/products';
@@ -18,11 +17,11 @@ import * as productsActions from '../../store/actions/products';
 import * as cartActions from '../../store/actions/cart';
 import Colors from '../../constants/Colors';
 
-const ProductsOverviewScreen = (props) => {
+const ProductsOverviewScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const products = useSelector((state) => state.products.availableProducts);
+  const [error, setError] = useState();
+  const products = useSelector(state => state.products.availableProducts);
   const dispatch = useDispatch();
 
   const loadProducts = useCallback(async () => {
@@ -34,7 +33,7 @@ const ProductsOverviewScreen = (props) => {
       setError(err.message);
     }
     setIsRefreshing(false);
-  }, [dispatch, setError]);
+  }, [dispatch, setIsLoading, setError]);
 
   useEffect(() => {
     const willFocusSub = props.navigation.addListener(
@@ -42,11 +41,10 @@ const ProductsOverviewScreen = (props) => {
       loadProducts,
     );
 
-    // Clean up and remove event  listener when component unmounts
     return () => {
       willFocusSub.remove();
     };
-  }, [loadProducts, props.navigation]);
+  }, [loadProducts]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -61,7 +59,6 @@ const ProductsOverviewScreen = (props) => {
       productTitle: title,
     });
   };
-
   if (error) {
     return (
       <View style={styles.centered}>
@@ -96,8 +93,8 @@ const ProductsOverviewScreen = (props) => {
       onRefresh={loadProducts}
       refreshing={isRefreshing}
       data={products}
-      keyExtractor={(item) => item.id}
-      renderItem={(itemData) => (
+      keyExtractor={item => item.id}
+      renderItem={itemData => (
         <ProductItem
           image={itemData.item.imageUrl}
           title={itemData.item.title}
@@ -125,7 +122,7 @@ const ProductsOverviewScreen = (props) => {
   );
 };
 
-ProductsOverviewScreen.navigationOptions = (navData) => {
+ProductsOverviewScreen.navigationOptions = navData => {
   return {
     headerTitle: 'All Products',
     headerLeft: () => (
