@@ -22,6 +22,9 @@ const ProductsOverviewScreen = props => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState();
   const products = useSelector(state => state.products.availableProducts);
+  const cartItems = useSelector(state => state.cart.items);
+
+  console.log(Object.keys(cartItems).length, 'cuurent cart state');
   const dispatch = useDispatch();
 
   const loadProducts = useCallback(async () => {
@@ -48,10 +51,24 @@ const ProductsOverviewScreen = props => {
 
   useEffect(() => {
     setIsLoading(true);
+
     loadProducts().then(() => {
       setIsLoading(false);
     });
-  }, [dispatch, loadProducts]);
+  }, [dispatch, loadProducts, props.navigation]);
+
+  // const setNumOfCartItems = useCallback(() => {
+  //   props.navigation.setParams({
+  //     numOfCartItems: Object.keys(cartItems).length,
+  //   });
+  //   console.log(cartItems);
+  // }, [cartItems]);
+
+  // useEffect(() => {
+  //   props.navigation.setParams({
+  //     numOfCartItems: Object.keys(cartItems).length,
+  //   });
+  // }, [cartItems]);
 
   const selectItemHandler = (id, title) => {
     props.navigation.navigate('ProductDetail', {
@@ -102,6 +119,9 @@ const ProductsOverviewScreen = props => {
           onSelect={() => {
             selectItemHandler(itemData.item.id, itemData.item.title);
           }}>
+          <Text style={{color: 'pink', fontSize: 50}}>
+            {Object.keys(cartItems).length}
+          </Text>
           <Button
             color={Colors.primary}
             title="View Details"
@@ -109,6 +129,7 @@ const ProductsOverviewScreen = props => {
               selectItemHandler(itemData.item.id, itemData.item.title);
             }}
           />
+
           <Button
             color={Colors.primary}
             title="To Cart"
@@ -123,29 +144,33 @@ const ProductsOverviewScreen = props => {
 };
 
 ProductsOverviewScreen.navigationOptions = navData => {
+  const numOItems = navData.navigation.getParam('numOfCartItems');
+  console.log(numOItems, 'cart count');
+  numOItems;
   return {
     headerTitle: 'All Products',
-    headerLeft: () => (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item
-          title="Menu"
-          iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'}
-          onPress={() => {
-            navData.navigation.toggleDrawer();
-          }}
-        />
-      </HeaderButtons>
-    ),
+    // headerLeft: () => (
+    //   // <HeaderButtons HeaderButtonComponent={HeaderButton}>
+    //   //   <Item
+    //   //     title="Menu"
+    //   //     iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'}
+    //   //     onPress={() => {
+    //   //       navData.navigation.toggleDrawer();
+    //   //     }}
+    //   //   />
+    //   // </HeaderButtons>
+    // ),
     headerRight: () => (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item
-          title="Cart"
-          iconName={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'}
-          onPress={() => {
-            navData.navigation.navigate('Cart');
-          }}
-        />
-      </HeaderButtons>
+      <HeaderButton />
+      // <HeaderButtons HeaderButtonComponent={HeaderButton}>
+      //   <Item
+      //     title="Cart"
+      //     iconName={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'}
+      //     onPress={() => {
+      //       navData.navigation.navigate('Cart');
+      //     }}
+      //   />
+      // </HeaderButtons>
     ),
   };
 };
