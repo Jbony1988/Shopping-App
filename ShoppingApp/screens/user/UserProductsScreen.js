@@ -1,11 +1,20 @@
-import React, {useEffect, useCallback, useState} from 'react';
-import {FlatList, Platform, Button, Alert, View, Text} from 'react-native';
+import React from 'react';
+import {
+  FlatList,
+  Platform,
+  Button,
+  Alert,
+  View,
+  Text,
+  StyleSheet,
+} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import ProductItem from '../../components/shop/ProductItem';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 import HeaderButton from '../../components/UI/HeaderButton';
 import Colors from '../../constants/Colors';
 import * as productsActions from '../../store/actions/products';
+import DrawButton from '../../components/UI/DrawButton';
 
 const UserProductsScreen = props => {
   const userProducts = useSelector(state => state.products.userProducts);
@@ -30,7 +39,7 @@ const UserProductsScreen = props => {
 
   if (userProducts.length === 0) {
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={styles.noProductsFound}>
         <Text>No products found, maybe start creating some?</Text>
       </View>
     );
@@ -70,7 +79,7 @@ UserProductsScreen.navigationOptions = navData => {
   return {
     headerTitle: 'Your Products',
     headerLeft: () => (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+      <HeaderButtons HeaderButtonComponent={DrawButton}>
         <Item
           title="Menu"
           iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'}
@@ -93,5 +102,13 @@ UserProductsScreen.navigationOptions = navData => {
     ),
   };
 };
+
+const styles = StyleSheet.create({
+  noProductsFound: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 export default UserProductsScreen;

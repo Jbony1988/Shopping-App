@@ -12,6 +12,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 import HeaderButton from '../../components/UI/HeaderButton';
 import ProductItem from '../../components/shop/ProductItem';
+import DrawButton from '../../components/UI/DrawButton';
 import * as productsActions from '../../store/actions/products';
 
 import * as cartActions from '../../store/actions/cart';
@@ -56,19 +57,6 @@ const ProductsOverviewScreen = props => {
       setIsLoading(false);
     });
   }, [dispatch, loadProducts, props.navigation]);
-
-  // const setNumOfCartItems = useCallback(() => {
-  //   props.navigation.setParams({
-  //     numOfCartItems: Object.keys(cartItems).length,
-  //   });
-  //   console.log(cartItems);
-  // }, [cartItems]);
-
-  // useEffect(() => {
-  //   props.navigation.setParams({
-  //     numOfCartItems: Object.keys(cartItems).length,
-  //   });
-  // }, [cartItems]);
 
   const selectItemHandler = (id, title) => {
     props.navigation.navigate('ProductDetail', {
@@ -119,9 +107,6 @@ const ProductsOverviewScreen = props => {
           onSelect={() => {
             selectItemHandler(itemData.item.id, itemData.item.title);
           }}>
-          <Text style={{color: 'pink', fontSize: 50}}>
-            {Object.keys(cartItems).length}
-          </Text>
           <Button
             color={Colors.primary}
             title="View Details"
@@ -149,29 +134,18 @@ ProductsOverviewScreen.navigationOptions = navData => {
   numOItems;
   return {
     headerTitle: 'All Products',
-    // headerLeft: () => (
-    //   // <HeaderButtons HeaderButtonComponent={HeaderButton}>
-    //   //   <Item
-    //   //     title="Menu"
-    //   //     iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'}
-    //   //     onPress={() => {
-    //   //       navData.navigation.toggleDrawer();
-    //   //     }}
-    //   //   />
-    //   // </HeaderButtons>
-    // ),
-    headerRight: () => (
-      <HeaderButton />
-      // <HeaderButtons HeaderButtonComponent={HeaderButton}>
-      //   <Item
-      //     title="Cart"
-      //     iconName={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'}
-      //     onPress={() => {
-      //       navData.navigation.navigate('Cart');
-      //     }}
-      //   />
-      // </HeaderButtons>
+    headerLeft: () => (
+      <HeaderButtons HeaderButtonComponent={DrawButton}>
+        <Item
+          title="Menu"
+          iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'}
+          onPress={() => {
+            navData.navigation.toggleDrawer();
+          }}
+        />
+      </HeaderButtons>
     ),
+    headerRight: () => <HeaderButton />,
   };
 };
 
