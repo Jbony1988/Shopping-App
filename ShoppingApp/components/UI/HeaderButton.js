@@ -1,7 +1,6 @@
 import React from 'react';
 import {Platform, View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {useSelector} from 'react-redux';
-import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation, useNavigationParam} from 'react-navigation-hooks';
 import Colors from '../../constants/Colors';
@@ -9,16 +8,12 @@ import Colors from '../../constants/Colors';
 const CustomerHeaderButton = props => {
   const cartItems = useSelector(state => state.cart.items);
   const navigation = useNavigation();
-  console.log(Object.keys(cartItems).length);
-  // const goToCart = () => {
-  //   props.navigation.navigate('Cart');
-  // };
 
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('Cart')}
       style={[
-        {padding: 5},
+        styles.button,
         Platform.OS === 'android' ? styles.iconContainer : null,
       ]}>
       <View style={styles.cartStyle}>
@@ -26,14 +21,14 @@ const CustomerHeaderButton = props => {
           {Object.keys(cartItems).length}
         </Text>
       </View>
-      <Icon name="ios-cart" size={30} />
+      <Icon
+        name="ios-cart"
+        color={Platform.OS === 'android' ? 'white' : ''}
+        size={38}
+      />
     </TouchableOpacity>
   );
 };
-
-const mapStateToProps = state => ({
-  cartItems: state.cart.items,
-});
 
 const styles = StyleSheet.create({
   cartStyle: {
@@ -41,16 +36,19 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     borderRadius: 15,
-    backgroundColor: Colors.primary,
-    right: 5,
-    bottom: 10,
+    left: 6,
+    bottom: 12,
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 2000,
   },
   cartNumberStyle: {
-    color: 'white',
+    color: Platform.OS === 'ios' ? 'white' : 'black',
     fontWeight: 'bold',
+    fontSize: 16,
+  },
+  button: {
+    padding: 5,
   },
 });
 

@@ -2,6 +2,7 @@ import React from 'react';
 import {ScrollView, Text, Image, Button, StyleSheet, View} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import Colors from '../../constants/Colors';
+import HeaderButton from '../../components/UI/HeaderButton';
 import * as cartActions from '../../store/actions/cart';
 
 const ProductDetailScreen = props => {
@@ -60,6 +61,7 @@ const styles = StyleSheet.create({
 ProductDetailScreen.navigationOptions = navData => {
   return {
     headerTitle: navData.navigation.getParam('productTitle'),
+    headerRight: () => <HeaderButton />,
   };
 };
 

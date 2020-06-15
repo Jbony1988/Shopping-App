@@ -47,6 +47,13 @@ const CartScreen = props => {
     );
     setIsLoading(false);
   };
+
+  if (isLoading) {
+    <View>
+      <Text>hello</Text>
+    </View>;
+  }
+
   return (
     <View style={styles.screen}>
       <Card style={styles.summary}>
@@ -70,15 +77,21 @@ const CartScreen = props => {
         data={cartItems}
         keyExtractor={item => item.productId}
         renderItem={itemData => (
-          <CartItem
-            deleteable
-            onRemove={() => {
-              dispatch(cartActions.removeFromCart(itemData.item.productId));
-            }}
-            quantity={itemData.item.quantity}
-            title={itemData.item.productTitle}
-            amount={itemData.item.sum}
-          />
+          <View>
+            <CartItem
+              deleteable
+              onRemove={() => {
+                dispatch(cartActions.removeFromCart(itemData.item.productId));
+              }}
+              increaseQty={() => {
+                dispatch(cartActions.increaseQuantity(itemData.item.productId));
+              }}
+              image={itemData.item.imageUrl}
+              quantity={itemData.item.quantity}
+              title={itemData.item.productTitle}
+              amount={itemData.item.sum}
+            />
+          </View>
         )}
       />
     </View>

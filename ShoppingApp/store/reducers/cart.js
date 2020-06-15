@@ -1,4 +1,8 @@
-import {ADD_TO_CART, REMOVE_FROM_CART} from '../actions/cart';
+import {
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  INCREASE_QUANTITY,
+} from '../actions/cart';
 import CartItem from '../../models/cart-item';
 import {ADD_ORDER} from '../actions/orders';
 import {DELETE_PRODUCT} from '../actions/products';
@@ -14,26 +18,34 @@ export default (state = initialState, action) => {
       const addedProduct = action.product;
       const prodPrice = addedProduct.price;
       const prodTitle = addedProduct.title;
-
+      const prodImage = addedProduct.imageUrl;
       let updatedOrNewCartItem;
-
       if (state.items[addedProduct.id]) {
         // already have the item in the cart
         updatedOrNewCartItem = new CartItem(
           state.items[addedProduct.id].quantity + 1,
           prodPrice,
           prodTitle,
+          prodImage,
           state.items[addedProduct.id].sum + prodPrice,
         );
       } else {
-        updatedOrNewCartItem = new CartItem(1, prodPrice, prodTitle, prodPrice);
+        updatedOrNewCartItem = new CartItem(
+          1,
+          prodPrice,
+          prodTitle,
+          prodImage,
+          prodPrice,
+        );
       }
       return {
         ...state,
         items: {...state.items, [addedProduct.id]: updatedOrNewCartItem},
         totalAmount: state.totalAmount + prodPrice,
       };
+
     case REMOVE_FROM_CART:
+      // use this for removing and adding to cart just adapt it for increasing the quantity
       const selectedCartItem = state.items[action.pid];
       const currentQty = selectedCartItem.quantity;
       let updatedCartItems;
@@ -54,6 +66,29 @@ export default (state = initialState, action) => {
         ...state,
         items: updatedCartItems,
         totalAmount: state.totalAmount - selectedCartItem.productPrice,
+      };
+    case INCREASE_QUANTITY:
+      // use this for removing and adding to cart just adapt it for increasing the quantity
+      const cartItemSelected = state.items[action.pid];
+      const currentQuantity = cartItemSelected.quantity;
+      let currentCartItems;
+      if (currentQuantity >= 1) {
+        // need to reduce it, not erase it
+        const updatedCartItem = new CartItem(
+          cartItemSelected.quantity + 1,
+          cartItemSelected.productPrice,
+          cartItemSelected.productTitle,
+          cartItemSelected.sum + cartItemSelected.productPrice,
+        );
+        currentCartItems = {...state.items, [action.pid]: updatedCartItem};
+      } else {
+        currentCartItems = {...state.items};
+        // delete updatedCartItems[action.pid];
+      }
+      return {
+        ...state,
+        items: currentCartItems,
+        totalAmount: state.totalAmount + cartItemSelected.productPrice,
       };
     case ADD_ORDER:
       return initialState;

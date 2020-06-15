@@ -107,21 +107,25 @@ const ProductsOverviewScreen = props => {
           onSelect={() => {
             selectItemHandler(itemData.item.id, itemData.item.title);
           }}>
-          <Button
-            color={Colors.primary}
-            title="View Details"
-            onPress={() => {
-              selectItemHandler(itemData.item.id, itemData.item.title);
-            }}
-          />
+          <View style={styles.button}>
+            <Button
+              color={Colors.primary}
+              title="View Details"
+              onPress={() => {
+                selectItemHandler(itemData.item.id, itemData.item.title);
+              }}
+            />
+          </View>
 
-          <Button
-            color={Colors.primary}
-            title="To Cart"
-            onPress={() => {
-              dispatch(cartActions.addToCart(itemData.item));
-            }}
-          />
+          <View style={styles.button}>
+            <Button
+              color={Colors.primary}
+              title="To Cart"
+              onPress={() => {
+                dispatch(cartActions.addToCart(itemData.item));
+              }}
+            />
+          </View>
         </ProductItem>
       )}
     />
@@ -154,6 +158,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  button: {
+    width: 120,
   },
 });
 
