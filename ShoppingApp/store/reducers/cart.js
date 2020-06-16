@@ -45,7 +45,6 @@ export default (state = initialState, action) => {
       };
 
     case REMOVE_FROM_CART:
-      // use this for removing and adding to cart just adapt it for increasing the quantity
       const selectedCartItem = state.items[action.pid];
       const currentQty = selectedCartItem.quantity;
       let updatedCartItems;
@@ -55,6 +54,7 @@ export default (state = initialState, action) => {
           selectedCartItem.quantity - 1,
           selectedCartItem.productPrice,
           selectedCartItem.productTitle,
+          selectedCartItem.imageUrl,
           selectedCartItem.sum - selectedCartItem.productPrice,
         );
         updatedCartItems = {...state.items, [action.pid]: updatedCartItem};
@@ -78,6 +78,7 @@ export default (state = initialState, action) => {
           cartItemSelected.quantity + 1,
           cartItemSelected.productPrice,
           cartItemSelected.productTitle,
+          cartItemSelected.imageUrl,
           cartItemSelected.sum + cartItemSelected.productPrice,
         );
         currentCartItems = {...state.items, [action.pid]: updatedCartItem};

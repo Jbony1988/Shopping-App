@@ -27,6 +27,7 @@ const CartScreen = props => {
       transformedCartItems.push({
         productId: key,
         productTitle: state.cart.items[key].productTitle,
+        productImage: state.cart.items[key].imageUrl,
         productPrice: state.cart.items[key].productPrice,
         quantity: state.cart.items[key].quantity,
         sum: state.cart.items[key].sum,
@@ -54,6 +55,7 @@ const CartScreen = props => {
     </View>;
   }
 
+  console.log(cartItems, 'cartItems');
   return (
     <View style={styles.screen}>
       <Card style={styles.summary}>
@@ -86,10 +88,10 @@ const CartScreen = props => {
               increaseQty={() => {
                 dispatch(cartActions.increaseQuantity(itemData.item.productId));
               }}
-              image={itemData.item.imageUrl}
+              imageUrl={itemData.item.productImage}
               quantity={itemData.item.quantity}
               title={itemData.item.productTitle}
-              amount={itemData.item.sum}
+              amount={itemData.item.sum.toFixed(2)}
             />
           </View>
         )}

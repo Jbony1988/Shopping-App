@@ -9,30 +9,38 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const CartItem = props => {
+const CartItem = ({
+  imageUrl,
+  quantity,
+  title,
+  amount,
+  deleteable,
+  onRemove,
+  increaseQty,
+}) => {
   return (
-    <View>
+    <View style={styles.wrapper}>
       <View style={styles.cartItem}>
         <View>
-          <Image style={styles.image} source={{uri: props.image}} />
-          {console.log(props.quantity, 'image')}
+          <Image style={styles.image} source={{uri: `${imageUrl}`}} />
+          {console.log(quantity, 'image')}
         </View>
         <View style={styles.productInfo}>
-          <Text style={styles.quantity}>{props.quantity} </Text>
-          <Text style={styles.mainText}>{props.title}</Text>
-          <Text style={styles.mainText}>${props.amount.toFixed(2)}</Text>
+          <Text style={styles.quantity}>{quantity} </Text>
+          <Text style={styles.mainText}>{title}</Text>
+          <Text style={styles.mainText}>${amount}</Text>
         </View>
       </View>
-      {props.deleteable && (
-        <View style={styles.buttons}>
-          <TouchableOpacity onPress={props.onRemove} style={styles.button}>
+      {deleteable && (
+        <View style={styles.increaseDecreaseBtn}>
+          <TouchableOpacity onPress={onRemove} style={styles.button}>
             <Ionicons
               name={Platform.OS === 'android' ? 'md-trash' : 'ios-trash'}
               size={23}
               color="black"
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={props.increaseQty} style={styles.button}>
+          <TouchableOpacity onPress={increaseQty} style={styles.button}>
             <Ionicons
               name={Platform.OS === 'android' ? 'md-add' : 'ios-add'}
               size={23}
@@ -79,9 +87,13 @@ const styles = StyleSheet.create({
   productInfo: {
     width: '50%',
   },
-  buttons: {
+  increaseDecreaseBtn: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: 5,
+  },
+  wrapper: {
+    marginTop: 40,
   },
 });
 
